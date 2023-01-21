@@ -5,12 +5,12 @@ const authController = require("../controllers/auth");
 //const validchek = require('../middleware/validchek');                      // use this if you want to use your customised middleware
 const router = express.Router();
 
-router.get("/login", authController.getLogin);
+router.get("/api/login", authController.getLogin);
 
-router.get("/signup", authController.getSignup);
+router.get("/api/signup", authController.getSignup);
 
 router.post(
-  "/login",
+  "/api/login",
   [
     body("email")
       .isEmail()
@@ -25,7 +25,7 @@ router.post(
 );
 
 router.post(
-  "/signup",
+  "/api/signup",
   check("email")
     .isEmail()
     .withMessage("Please enter a valid email")
@@ -63,14 +63,14 @@ router.post(
 
 //router.post("/signup", validchek, authController.postSignup);
 
-router.post("/logout", authController.postLogout);
+router.post("/api/logout", authController.postLogout);
 
-router.get("/reset", authController.getReset);
+router.get("/api/reset", authController.getReset);
 
-router.post("/reset", authController.postReset);
+router.post("/api/reset", authController.postReset);
 
-router.get("/reset/:token", authController.getNewPassword);
+router.get("/api/reset/:token", authController.getNewPassword);
 
-router.post("/new-password", authController.postNewPassword);
+router.post("/api/new-password", authController.postNewPassword);
 
 module.exports = router;
