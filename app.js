@@ -13,7 +13,7 @@ const multer = require("multer");
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
-const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@section20shop.c57necz.mongodb.net/shop?retryWrites=true&w=majority`
+const MONGODB_URI = "mongodb+srv://ravi:newton@section20shop.c57necz.mongodb.net/shop?retryWrites=true&w=majority";
 
 const app = express();
 
@@ -97,7 +97,7 @@ app.use((req, res, next) => {
     });
 });
 
-app.use("/api/admin", adminRoutes);
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
