@@ -15,16 +15,16 @@
   "author": "ravi",
   "license": "ISC",
   "devDependencies": {
-    "@vercel/node": "^2.8.14",
+    "dotenv": "^16.0.3",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "csurf": "^1.11.0",
-    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.16.3",
     "express-handlebars": "^6.0.6",
