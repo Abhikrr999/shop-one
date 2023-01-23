@@ -1,6 +1,6 @@
 const path = require("path");
 require('dotenv').config(); 
-
+const fs = require('fs');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -9,20 +9,19 @@ const MongoDBStore = require("connect-mongodb-session")(session); // package to 
 const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
+const helmet = require("helmet");
+const compression = require('compression');
+const morgan = require('morgan');
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
-const userName = process.env.MONGO_USER;
-const dbPass = process.env.MONGO_PASSWORD;
 
-
-
-const MONGODB_URI = `mongodb+srv://${userName}:${dbPass}@section20shop.c57necz.mongodb.net/shop?retryWrites=true&w=majority`;
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@section20shop.c57necz.mongodb.net/shop?retryWrites=true&w=majority`;
 
 const app = express();
 
-console.log(MONGODB_URI);
+
 const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "sessions",
@@ -56,6 +55,11 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth");
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags : 'a'});
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', {stream: accessLogStream}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
